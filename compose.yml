@@ -1,0 +1,22 @@
+services:
+  nominatim:
+    image: mediagis/nominatim:4.4
+    environment:
+      - IMPORT_STYLE=address
+      - IMPORT_WIKIPEDIA=false
+      - NOMINATIM_PASSWORD=81xZiIp3PMWG
+      - PBF_URL=https://download.geofabrik.de/russia-latest.osm.pbf
+      - POSTGRES_WORK_MEM=12GB
+      - FREEZE=true
+    volumes:
+      - nominatim_data:/var/lib/postgresql/14/main
+    shm_size: 8gb
+    ports:
+      - 8080:8080
+  
+  run:
+    build:
+      context: ./addr
+
+volumes:
+  nominatim_data:
